@@ -7,11 +7,12 @@ import { ai } from '@/ai/genkit';
 import {
   ExplainMedicalReportInput,
   ExplainMedicalReportOutput,
-  ExplainMedicalReportOutputSchema,
 } from '@/ai/schemas/explain-medical-report';
 import { z } from 'zod';
 
-export async function explainMedicalReport(input: ExplainMedicalReportInput): Promise<ExplainMedicalReportOutput> {
+export async function explainMedicalReport(
+  input: ExplainMedicalReportInput
+): Promise<ExplainMedicalReportOutput> {
   const { output } = await ai.generate({
     prompt: `You are an expert medical professional who is skilled at explaining complex medical reports to patients who have no medical knowledge.
 
@@ -31,7 +32,8 @@ ${input.reportText}
     throw new Error('Failed to generate explanation.');
   }
 
-  // Manually parse to ensure it conforms to the final schema.
-  const parsedOutput = ExplainMedicalReportOutputSchema.parse(output);
-  return parsedOutput;
+  // Manually ensure the output conforms to the final schema type.
+  return {
+    patientFriendlyExplanation: output.patientFriendlyExplanation,
+  };
 }
