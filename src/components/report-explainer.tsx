@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import { explainMedicalReport } from '@/ai/flows/explain-medical-report';
-import type { ExplainMedicalReportOutput } from '@/ai/schemas/explain-medical-report';
+import type { ExplainMedicalReportOutput } from '@/ai/flows/explain-medical-report';
 
 const languages = [
   { value: 'english', label: 'English' },

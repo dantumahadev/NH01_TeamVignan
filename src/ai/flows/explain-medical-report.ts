@@ -4,11 +4,17 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
-import {
-  ExplainMedicalReportInput,
-  ExplainMedicalReportOutput,
-} from '@/ai/schemas/explain-medical-report';
 import { z } from 'zod';
+
+// Define types directly in this file for simplicity and to avoid build issues.
+export interface ExplainMedicalReportInput {
+  reportText: string;
+  language: string;
+}
+
+export interface ExplainMedicalReportOutput {
+  patientFriendlyExplanation: string;
+}
 
 export async function explainMedicalReport(
   input: ExplainMedicalReportInput
