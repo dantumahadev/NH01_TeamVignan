@@ -15,19 +15,6 @@ export async function explainMedicalReport(input: ExplainMedicalReportInput): Pr
   return explainMedicalReportFlow(input);
 }
 
-const explainMedicalReportPrompt = ai.definePrompt({
-  name: 'explainMedicalReportPrompt',
-  input: { schema: ExplainMedicalReportInputSchema },
-  output: { schema: ExplainMedicalReportOutputSchema },
-  prompt: `You are an expert medical professional who is skilled at explaining complex medical reports to patients who have no medical knowledge.
-
-  Explain the following medical report to a patient in simple, easy-to-understand terms. The explanation should be in {{language}}.
-
-  Medical Report:
-  {{reportText}}
-  `,
-});
-
 const explainMedicalReportFlow = ai.defineFlow(
   {
     name: 'explainMedicalReportFlow',
@@ -35,7 +22,18 @@ const explainMedicalReportFlow = ai.defineFlow(
     outputSchema: ExplainMedicalReportOutputSchema,
   },
   async (input) => {
-    const { output } = await explainMedicalReportPrompt(input);
+    const { output } = await ai.generate({
+      prompt: `You are an expert medical professional who is skilled at explaining complex medical reports to patients who have no medical knowledge.
+
+  Explain the following medical report to a patient in simple, easy-to-understand terms. The explanation should be in ${input.language}.
+
+  Medical Report:
+  ${input.reportText}
+  `,
+      output: {
+        schema: ExplainMedicalReportOutputSchema,
+      },
+    });
     return output!;
   }
 );
