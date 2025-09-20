@@ -30,10 +30,8 @@ const explainMedicalReportFlow = ai.defineFlow(
   Medical Report:
   ${input.reportText}
   `,
-      output: {
-        schema: ExplainMedicalReportOutputSchema,
-      },
     });
-    return output!;
+    // The flow's output is automatically validated against the output schema.
+    return output as ExplainMedicalReportOutput;
   }
 );
