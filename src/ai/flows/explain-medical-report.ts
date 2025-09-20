@@ -6,32 +6,32 @@
 import { ai } from '@/ai/genkit';
 import {
   ExplainMedicalReportInput,
-  ExplainMedicalReportInputSchema,
   ExplainMedicalReportOutput,
   ExplainMedicalReportOutputSchema,
 } from '@/ai/schemas/explain-medical-report';
+import { z } from 'zod';
 
 export async function explainMedicalReport(input: ExplainMedicalReportInput): Promise<ExplainMedicalReportOutput> {
-  return explainMedicalReportFlow(input);
-}
+  const { output } = await ai.generate({
+    prompt: `You are an expert medical professional who is skilled at explaining complex medical reports to patients who have no medical knowledge.
 
-const explainMedicalReportFlow = ai.defineFlow(
-  {
-    name: 'explainMedicalReportFlow',
-    inputSchema: ExplainMedicalReportInputSchema,
-    outputSchema: ExplainMedicalReportOutputSchema,
-  },
-  async (input) => {
-    const { output } = await ai.generate({
-      prompt: `You are an expert medical professional who is skilled at explaining complex medical reports to patients who have no medical knowledge.
+Explain the following medical report to a patient in simple, easy-to-understand terms. The explanation should be in ${input.language}.
 
-  Explain the following medical report to a patient in simple, easy-to-understand terms. The explanation should be in ${input.language}.
+Medical Report:
+${input.reportText}
+`,
+    output: {
+      schema: z.object({
+        patientFriendlyExplanation: z.string(),
+      }),
+    },
+  });
 
-  Medical Report:
-  ${input.reportText}
-  `,
-    });
-    // The flow's output is automatically validated against the output schema.
-    return output as ExplainMedicalReportOutput;
+  if (!output) {
+    throw new Error('Failed to generate explanation.');
   }
-);
+
+  // Manually parse to ensure it conforms to the final schema.
+  const parsedOutput = ExplainMedicalReportOutputSchema.parse(output);
+  return parsedOutput;
+}
