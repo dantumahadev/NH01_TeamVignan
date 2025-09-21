@@ -6,7 +6,6 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-// Define types directly in this file for simplicity and to avoid build issues.
 export interface ExplainMedicalReportInput {
   reportText: string;
   language: string;
@@ -38,7 +37,6 @@ ${input.reportText}
     throw new Error('Failed to generate explanation.');
   }
 
-  // Manually ensure the output conforms to the final schema type.
   return {
     patientFriendlyExplanation: output.patientFriendlyExplanation,
   };
