@@ -4,11 +4,11 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import type {
   ExplainMedicalReportInput,
   ExplainMedicalReportOutput,
 } from '@/app/lib/types';
+import { ExplainMedicalReportOutputSchema } from '@/app/lib/schemas';
 
 /**
  * Explains a medical report in patient-friendly terms using a generative AI model.
@@ -27,9 +27,7 @@ Medical Report:
 ${input.reportText}
 `,
     output: {
-      schema: z.object({
-        patientFriendlyExplanation: z.string(),
-      }),
+      schema: ExplainMedicalReportOutputSchema,
     },
   });
 
