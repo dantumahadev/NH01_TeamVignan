@@ -5,7 +5,10 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import type { ExplainMedicalReportInput, ExplainMedicalReportOutput } from '@/app/lib/types';
+import type {
+  ExplainMedicalReportInput,
+  ExplainMedicalReportOutput,
+} from '@/app/lib/types';
 
 export async function explainMedicalReport(
   input: ExplainMedicalReportInput
