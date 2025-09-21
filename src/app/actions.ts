@@ -4,10 +4,15 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
+import { z } from 'zod';
 import type {
   ExplainMedicalReportInput,
   ExplainMedicalReportOutput,
 } from '@/app/lib/types';
+
+const ExplainMedicalReportOutputSchema = z.object({
+  patientFriendlyExplanation: z.string(),
+});
 
 /**
  * Explains a medical report in patient-friendly terms using a generative AI model.
@@ -26,10 +31,7 @@ Medical Report:
 ${input.reportText}
 `,
     output: {
-      format: 'json',
-      schema: {
-        patientFriendlyExplanation: 'string',
-      },
+      schema: ExplainMedicalReportOutputSchema,
     },
   });
 
@@ -37,7 +39,5 @@ ${input.reportText}
     throw new Error('Failed to generate explanation.');
   }
 
-  return {
-    patientFriendlyExplanation: output.patientFriendlyExplanation,
-  };
+  return output;
 }
