@@ -4,7 +4,6 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import type {
   ExplainMedicalReportInput,
   ExplainMedicalReportOutput,
@@ -22,9 +21,10 @@ Medical Report:
 ${input.reportText}
 `,
     output: {
-      schema: z.object({
-        patientFriendlyExplanation: z.string(),
-      }),
+      format: 'json',
+      schema: {
+        patientFriendlyExplanation: 'string',
+      },
     },
   });
 
