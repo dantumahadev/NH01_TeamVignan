@@ -5,15 +5,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-
-export interface ExplainMedicalReportInput {
-  reportText: string;
-  language: string;
-}
-
-export interface ExplainMedicalReportOutput {
-  patientFriendlyExplanation: string;
-}
+import type { ExplainMedicalReportInput, ExplainMedicalReportOutput } from '@/app/lib/types';
 
 export async function explainMedicalReport(
   input: ExplainMedicalReportInput
