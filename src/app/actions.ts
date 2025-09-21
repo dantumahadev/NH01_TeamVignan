@@ -10,10 +10,6 @@ import type {
   ExplainMedicalReportOutput,
 } from '@/app/lib/types';
 
-const ExplainMedicalReportOutputSchema = z.object({
-  patientFriendlyExplanation: z.string(),
-});
-
 /**
  * Explains a medical report in patient-friendly terms using a generative AI model.
  * @param input The input containing the report text and desired language.
@@ -31,7 +27,9 @@ Medical Report:
 ${input.reportText}
 `,
     output: {
-      schema: ExplainMedicalReportOutputSchema,
+      schema: z.object({
+        patientFriendlyExplanation: z.string(),
+      }),
     },
   });
 
