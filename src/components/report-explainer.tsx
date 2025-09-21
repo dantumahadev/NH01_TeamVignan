@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
-import { explainMedicalReport } from '@/ai/flows/explain-medical-report';
+import { explainMedicalReport } from '@/app/actions';
 import type { ExplainMedicalReportOutput } from '@/app/lib/types';
 
 const languages = [

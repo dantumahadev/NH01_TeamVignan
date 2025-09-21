@@ -1,5 +1,5 @@
 /**
- * @fileoverview A flow that explains a medical report in patient-friendly terms.
+ * @fileoverview Server-side actions for the application.
  */
 'use server';
 
@@ -9,6 +9,11 @@ import type {
   ExplainMedicalReportOutput,
 } from '@/app/lib/types';
 
+/**
+ * Explains a medical report in patient-friendly terms using a generative AI model.
+ * @param input The input containing the report text and desired language.
+ * @returns The patient-friendly explanation.
+ */
 export async function explainMedicalReport(
   input: ExplainMedicalReportInput
 ): Promise<ExplainMedicalReportOutput> {
